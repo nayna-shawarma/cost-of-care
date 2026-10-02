@@ -14,8 +14,8 @@
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header" id="top">
       <a class="brand" href="#top" aria-label="The Cost of Care, back to top"><span>THE COST</span><span>OF CARE</span></a>
-      <nav aria-label="Main navigation"><a href="#findings">Findings</a><a href="#states">Explore states</a><a href="#methods">Methods &amp; sources</a></nav>
-      <p>INDIA · 2017–18</p>
+      <nav aria-label="Main navigation"><a href="#findings">Findings</a><a href="#insurance">Insurance</a><a href="#pmjay">PM-JAY</a><a href="#methods">Methods &amp; sources</a></nav>
+      <p>INDIA · 2017–18 / 2025</p>
     </header>
 
     <main id="main">
@@ -47,8 +47,26 @@
         <div class="coverage-card" id="coverage-card"></div>
       </section>
 
+      <section id="insurance" class="section insurance-section">
+        <p class="section-number">03 / FORMAL COVER</p>
+        <h2>Protection comes through different <em>doors.</em></h2>
+        <p class="section-intro">The same survey recorded whether the hospitalised person had support for health expenditure, and the broad route through which it was arranged. This is coverage status, not proof of access or of what a scheme eventually paid.</p>
+        <div class="insurance-summary" id="insurance-summary"></div>
+        <div class="insurance-grid" id="insurance-grid"></div>
+        <p class="small-note">The insurance field is linked for a subset of admissions. “Other scheme” has fewer than 30 observations and is not displayed. Differences in reported costs across groups may reflect who was admitted, where they sought care and what treatment they needed; they are not causal effects of insurance.</p>
+      </section>
+
+      <section id="pmjay" class="section pmjay-section">
+        <p class="section-number">04 / AFTER THE BASELINE</p>
+        <h2>What public insurance later <em>promised.</em></h2>
+        <p class="section-intro">PM-JAY was rolled out nationally after this survey. These administrative figures describe cancer-related admissions approved under the scheme through February 2025, not a before-and-after test of its impact.</p>
+        <div class="pmjay-summary" id="pmjay-summary"></div>
+        <div class="pmjay-list" id="pmjay-list"></div>
+        <p class="small-note">The Parliamentary annexure does not list every State/UT. A missing state is not treated as zero. The treatment amount is reported in crore rupees and should not be read as a household’s total cancer cost.</p>
+      </section>
+
       <section id="states" class="section state-section">
-        <p class="section-number">03 / STATE EXPLORER</p>
+        <p class="section-number">05 / STATE EXPLORER</p>
         <h2>One country. Different costs.</h2>
         <p class="section-intro">Choose states and a measure to compare survey estimates. State samples are modest; differences should not be read as policy effects.</p>
         <div class="controls"><div><p class="label">COMPARE A MEASURE</p><div class="filter-buttons" id="measure-filter" role="group" aria-label="Measure"></div></div><div><p class="label">SELECT STATES</p><div class="state-picker" id="state-picker" aria-label="Select states"></div></div></div>
@@ -60,7 +78,7 @@
       </section>
 
       <section class="section care-section">
-        <p class="section-number">04 / WHERE CARE HAPPENS</p>
+        <p class="section-number">06 / WHERE CARE HAPPENS</p>
         <h2>The setting of care is part of the <em>story.</em></h2>
         <p class="section-intro">Hospital type records where treatment took place. It does not tell us whether a household could choose between providers, or why someone sought care there.</p>
         <div class="institution-grid" id="institution-grid"></div>
@@ -68,7 +86,7 @@
       </section>
 
       <section id="methods" class="section methods-section">
-        <p class="section-number">05 / METHODS &amp; SOURCES</p>
+        <p class="section-number">07 / METHODS &amp; SOURCES</p>
         <h2>What the data can and cannot say.</h2>
         <p class="section-intro">The strength of a public-data project is knowing precisely where its evidence ends.</p>
         <div class="method-grid">
@@ -76,8 +94,10 @@
           <article><p>02 / DEFINITION</p><h3>Not a cancer registry</h3><p>Survey ailment code 13 combines known or physician-suspected cancers with growing painless lumps. It does not identify cancer site, stage, diagnosis confirmation, or the full burden of outpatient care.</p></article>
           <article><p>03 / ESTIMATION</p><h3>Weights and suppression</h3><p>Figures use the survey’s combined multiplier: weighted medians for rupee costs and weighted shares for percentages. Sample counts are unweighted. Groups below 30 observations are suppressed.</p></article>
           <article><p>04 / MISSINGNESS</p><h3>Blank is not zero</h3><p>Reimbursement is summarised only when an amount was recorded. The resulting estimate is not used as a population-wide net-cost figure. Source-of-finance codes describe the major reported source, not every source a household used.</p></article>
+          <article><p>05 / INSURANCE</p><h3>Coverage is not utilisation</h3><p>NSS records the broad source of health-expenditure support: government-sponsored, employer-linked, household-arranged private insurance, other scheme or no cover. It does not identify a policy’s actual payment for this admission.</p></article>
+          <article><p>06 / PM-JAY</p><h3>A later administrative record</h3><p>The PM-JAY section uses a 2025 Ministry of Health and Family Welfare Parliamentary annexure on cancer-related admissions and treatment amount. It is presented separately from the 2017–18 NSS survey.</p></article>
         </div>
-        <div class="source-links"><div><strong>Read the source documentation</strong><p>National Sample Survey, 75th Round, Schedule 25.0, Social Consumption: Health.</p><a href="https://microdata.gov.in/NADA/index.php/catalog/152" target="_blank" rel="noreferrer">MoSPI survey catalogue ↗</a></div><div><strong>Download the aggregated analysis</strong><p>Only anonymised summary statistics; no individual survey records.</p><a href="public/data/health-summary.json" download>Download JSON ↓</a></div></div>
+        <div class="source-links"><div><strong>Read the NSS documentation</strong><p>National Sample Survey, 75th Round, Schedule 25.0, Social Consumption: Health.</p><a href="https://microdata.gov.in/NADA/index.php/catalog/152" target="_blank" rel="noreferrer">MoSPI survey catalogue ↗</a></div><div><strong>Read the PM-JAY cancer table</strong><p>Ministry of Health and Family Welfare, Rajya Sabha Unstarred Question 1399, Annexure I, answered 11 March 2025.</p><a href="https://sansad.in/getFile/annex/267/AU1399_IpWgdF.pdf?source=pqars" target="_blank" rel="noreferrer">Parliamentary annexure ↗</a></div><div><strong>Download the aggregated analysis</strong><p>Only anonymised summary statistics; no individual survey records.</p><a href="public/data/health-summary.json" download>Download JSON ↓</a></div></div>
       </section>
     </main>
     <footer><strong>THE COST OF CARE</strong><span>An independent public-data exploration of financial protection in India.</span><a href="#top">Back to top ↑</a></footer>
