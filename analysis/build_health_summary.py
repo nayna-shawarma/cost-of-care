@@ -224,6 +224,7 @@ def build(raw_zip: Path, output: Path) -> dict:
             "unit": "Cancer-category hospitalisation admission",
             "definition": "Nature-of-ailment code 13: known or suspected cancers and growing painless lumps; not confirmed cancer diagnoses.",
             "method": "Weighted medians use Mult_Combined. Shares use the same survey multiplier. Sample counts are unweighted. Groups below 30 admissions should not be displayed.",
+            "scope": "Grouped public-data estimates only; no individual survey records are published.",
         },
         "allIndia": all_india,
         "byResidence": by_residence,
