@@ -1,0 +1,227 @@
+{
+  "metadata": {
+    "title": "The Cost of Care",
+    "source": "NSS 75th Round, Social Consumption: Health, 2017\u201318",
+    "unit": "Cancer-category hospitalisation admission",
+    "definition": "Nature-of-ailment code 13: known or suspected cancers and growing painless lumps; not confirmed cancer diagnoses.",
+    "method": "Weighted medians use Mult_Combined. Shares use the same survey multiplier. Sample counts are unweighted. Groups below 30 admissions should not be displayed."
+  },
+  "allIndia": {
+    "n": 1606,
+    "medianTotalCost": 27000.0,
+    "shareAtLeast50000": 34.9,
+    "anyReimbursement": 7.5,
+    "reimbursementRecordedN": 757,
+    "positiveReimbursementAmongRecorded": 16.2
+  },
+  "byResidence": {
+    "Rural": {
+      "n": 881,
+      "medianTotalCost": 26900.0,
+      "shareAtLeast50000": 34.2,
+      "anyReimbursement": 3.5,
+      "reimbursementRecordedN": 407,
+      "positiveReimbursementAmongRecorded": 7.6
+    },
+    "Urban": {
+      "n": 725,
+      "medianTotalCost": 30000.0,
+      "shareAtLeast50000": 36.1,
+      "anyReimbursement": 14.2,
+      "reimbursementRecordedN": 350,
+      "positiveReimbursementAmongRecorded": 30.1
+    }
+  },
+  "finance": [
+    {
+      "label": "Savings & income",
+      "share": 71.6,
+      "n": 1149
+    },
+    {
+      "label": "Borrowing",
+      "share": 16.9,
+      "n": 253
+    },
+    {
+      "label": "Asset sales",
+      "share": 2.7,
+      "n": 49
+    },
+    {
+      "label": "Friends & family",
+      "share": 5.9,
+      "n": 90
+    },
+    {
+      "label": "Other sources",
+      "share": 2.8,
+      "n": 65
+    }
+  ],
+  "financeByResidence": {
+    "Rural": [
+      {
+        "label": "Savings & income",
+        "share": 69.0,
+        "n": 584
+      },
+      {
+        "label": "Borrowing",
+        "share": 19.3,
+        "n": 166
+      },
+      {
+        "label": "Asset sales",
+        "share": 1.9,
+        "n": 30
+      },
+      {
+        "label": "Friends & family",
+        "share": 7.2,
+        "n": 61
+      },
+      {
+        "label": "Other sources",
+        "share": 2.7,
+        "n": 40
+      }
+    ],
+    "Urban": [
+      {
+        "label": "Savings & income",
+        "share": 76.1,
+        "n": 565
+      },
+      {
+        "label": "Borrowing",
+        "share": 12.9,
+        "n": 87
+      },
+      {
+        "label": "Asset sales",
+        "share": 4.1,
+        "n": 19
+      },
+      {
+        "label": "Friends & family",
+        "share": 3.9,
+        "n": 29
+      },
+      {
+        "label": "Other sources",
+        "share": 3.0,
+        "n": 25
+      }
+    ]
+  },
+  "institutions": [
+    {
+      "label": "Public",
+      "share": 45.3,
+      "n": 651
+    },
+    {
+      "label": "Charitable / trust",
+      "share": 3.9,
+      "n": 87
+    },
+    {
+      "label": "Private",
+      "share": 50.8,
+      "n": 868
+    }
+  ],
+  "institutionsByResidence": {
+    "Rural": [
+      {
+        "label": "Public",
+        "share": 46.9,
+        "n": 388
+      },
+      {
+        "label": "Charitable / trust",
+        "share": 2.5,
+        "n": 40
+      },
+      {
+        "label": "Private",
+        "share": 50.7,
+        "n": 453
+      }
+    ],
+    "Urban": [
+      {
+        "label": "Public",
+        "share": 42.7,
+        "n": 263
+      },
+      {
+        "label": "Charitable / trust",
+        "share": 6.4,
+        "n": 47
+      },
+      {
+        "label": "Private",
+        "share": 51.0,
+        "n": 415
+      }
+    ]
+  },
+  "states": [
+    {
+      "n": 205,
+      "medianTotalCost": 72650.0,
+      "shareAtLeast50000": 60.2,
+      "anyReimbursement": 2.0,
+      "reimbursementRecordedN": 108,
+      "positiveReimbursementAmongRecorded": 3.5,
+      "state": "Uttar Pradesh"
+    },
+    {
+      "n": 159,
+      "medianTotalCost": 18000.0,
+      "shareAtLeast50000": 26.9,
+      "anyReimbursement": 6.2,
+      "reimbursementRecordedN": 95,
+      "positiveReimbursementAmongRecorded": 10.1,
+      "state": "West Bengal"
+    },
+    {
+      "n": 130,
+      "medianTotalCost": 26780.0,
+      "shareAtLeast50000": 28.5,
+      "anyReimbursement": 13.4,
+      "reimbursementRecordedN": 41,
+      "positiveReimbursementAmongRecorded": 43.1,
+      "state": "Kerala"
+    },
+    {
+      "n": 120,
+      "medianTotalCost": 45400.0,
+      "shareAtLeast50000": 47.3,
+      "anyReimbursement": 6.4,
+      "reimbursementRecordedN": 81,
+      "positiveReimbursementAmongRecorded": 11.1,
+      "state": "Maharashtra"
+    },
+    {
+      "n": 109,
+      "medianTotalCost": 27000.0,
+      "shareAtLeast50000": 28.9,
+      "anyReimbursement": 3.0,
+      "reimbursementRecordedN": 18,
+      "positiveReimbursementAmongRecorded": 31.1,
+      "state": "Rajasthan"
+    },
+    {
+      "n": 109,
+      "medianTotalCost": 24600.0,
+      "shareAtLeast50000": 28.0,
+      "anyReimbursement": 12.9,
+      "reimbursementRecordedN": 45,
+      "positiveReimbursementAmongRecorded": 32.3,
+      "state": "Odisha"
+    }
+  ]
+}
