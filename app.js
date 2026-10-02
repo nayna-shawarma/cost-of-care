@@ -35,6 +35,19 @@ function renderCoverage() {
   const blank = stats.n - stats.reimbursementRecordedN;
   document.querySelector("#coverage-card").innerHTML = `<div><p class="label">REIMBURSEMENT RECORDED</p><strong>${stats.reimbursementRecordedN}<small> / ${stats.n}</small></strong><p>Among ${stats.reimbursementRecordedN} admissions with an amount recorded, <b>${formatPercent(stats.positiveReimbursementAmongRecorded)}</b> show a positive reimbursement.</p></div><p class="missing">${blank} admissions have a blank reimbursement amount in this selection.</p>`;
 }
+function renderInsurance() {
+  const insurance = data.insurance;
+  const visibleRows = insurance.rows.filter((item) => item.label !== "Other scheme");
+  document.querySelector("#insurance-summary").innerHTML = `<div><p class="label">COVERAGE STATUS LINKED</p><strong>${insurance.linkedStatusN.toLocaleString("en-IN")}</strong><p>of ${data.allIndia.n.toLocaleString("en-IN")} cancer-category admissions can be linked to the survey’s health-expenditure-support field.</p></div><div><p class="label">GOVERNMENT-SPONSORED</p><strong>${formatPercent(visibleRows[0].share)}</strong><p>of linked admissions report a government-sponsored scheme. This is the largest named route to formal cover in the survey.</p></div>`;
+  document.querySelector("#insurance-grid").innerHTML = visibleRows.map((item) => `<article><p class="label">${item.label.toUpperCase()}</p><strong>${formatPercent(item.share)}</strong><p>${item.n.toLocaleString("en-IN")} unweighted admissions</p><small>MEDIAN COST ₹${formatRupees(item.medianTotalCost)}<br />BORROWING ${formatPercent(item.borrowing)}</small></article>`).join("");
+}
+function renderPmjay() {
+  const pmjay = data.pmjay;
+  document.querySelector("#pmjay-summary").innerHTML = `<div><p class="label">CANCER-RELATED ADMISSIONS</p><strong>${pmjay.totalAdmissions.toLocaleString("en-IN")}</strong><p>Sum of the State/UT rows listed in the Parliamentary annexure.</p></div><div><p class="label">TREATMENT AMOUNT REPORTED</p><strong>₹${formatRupees(pmjay.totalAmountCrore)} cr</strong><p>AB-PMJAY administrative data, as of ${pmjay.asOf}.</p></div>`;
+  const rows = [...pmjay.states].sort((a, b) => b.admissions - a.admissions).slice(0, 6);
+  const high = rows[0].admissions;
+  document.querySelector("#pmjay-list").innerHTML = `<p class="label">HIGHEST REPORTED CANCER-RELATED ADMISSION COUNTS</p><h3>Where are recorded admissions concentrated?</h3>${rows.map((item) => `<div class="pmjay-row"><span>${item.state}</span><i style="width:${item.admissions / high * 100}%"></i><strong>${item.admissions.toLocaleString("en-IN")}</strong></div>`).join("")}`;
+}
 function renderFilters() {
   document.querySelector("#residence-filter").innerHTML = ["All India", "Rural", "Urban"].map((item) => `<button class="${item === residence ? "active" : ""}" data-residence="${item}">${item}</button>`).join("");
   document.querySelector("#measure-filter").innerHTML = Object.entries(labels).map(([key, label]) => `<button class="${key === measure ? "active" : ""}" data-measure="${key}">${label.button}</button>`).join("");
@@ -51,7 +64,7 @@ function renderStates() {
   document.querySelector("#state-chart").innerHTML = rows.length ? rows.map((item) => `<div class="state-row"><div class="state-name"><span>${item.state}</span><small>n = ${item.n}</small></div><div class="state-bar"><i style="width:${item[measure] / high * 100}%"></i></div><strong>${valueLabel(item[measure])}</strong></div>`).join("") : "<p>Select at least one state to compare.</p>";
   document.querySelector("#data-table").innerHTML = `<table><thead><tr><th>State</th><th>n</th><th>${labels[measure].button}</th></tr></thead><tbody>${rows.map((item) => `<tr><td>${item.state}</td><td>${item.n}</td><td>${valueLabel(item[measure])}</td></tr>`).join("")}</tbody></table><p class="small-note">Weighted estimates · minimum 30 unweighted observations per displayed group. No confidence intervals are shown: variance estimation has not yet been validated against the full sampling design. Treat small differences cautiously.</p>`;
 }
-function render() { snapshot(); renderFindings(); renderCoverage(); renderFilters(); renderStates(); }
+function render() { snapshot(); renderFindings(); renderCoverage(); renderInsurance(); renderPmjay(); renderFilters(); renderStates(); }
 
 fetch("public/data/health-summary.json")
   .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load the data summary.")))
