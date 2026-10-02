@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An independent public-data exploration of financial protection during cancer-category hospitalisation in India." />
+    <title>The Cost of Care | India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="The Cost of Care, back to top"><span>THE COST</span><span>OF CARE</span></a>
+      <nav aria-label="Main navigation"><a href="#findings">Findings</a><a href="#states">Explore states</a><a href="#methods">Methods &amp; sources</a></nav>
+      <p>INDIA · 2017–18</p>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="eyebrow-row"><span>A PUBLIC DATA PROJECT</span><span>01 / INDIA</span></div>
+        <h1>When care costs<br /><em>more than coverage.</em></h1>
+        <p class="hero-copy">What happens to household finances when someone is hospitalised for cancer-related illness? An exploration of costs, reimbursement, and uneven protection across India.</p>
+        <a class="button" href="#findings">Explore the evidence <span>↓</span></a>
+        <div class="snapshot" id="snapshot" aria-label="Survey snapshot"></div>
+        <p class="note"><strong>Read this first.</strong> “Cancer-related” follows the NSS survey’s broad category of known or suspected cancers and growing painless lumps, not confirmed cancer diagnoses. These figures describe 2017–18 hospitalisations, not today’s conditions.</p>
+      </section>
+
+      <section id="findings" class="section">
+        <p class="section-number">01 / THE FINANCIAL SHOCK</p>
+        <h2>The bill arrives before the safety net.</h2>
+        <p class="section-intro">A hospitalisation can draw on savings, borrowing, or relatives’ support. These are reported patterns, not proof that any particular policy caused them.</p>
+        <div class="metric-panel" id="cost-metric"></div>
+        <div class="finance-panel">
+          <div><p class="label">MAJOR SOURCE OF FINANCE</p><h3>How did households pay?</h3><p class="label">WEIGHTED SHARE</p></div>
+          <div class="bar-list" id="finance-bars"></div>
+        </div>
+        <div class="filter-wrap"><p class="label">EXPLORE BY RESIDENCE</p><div class="filter-buttons" id="residence-filter" role="group" aria-label="Residence filter"></div><p class="filter-help">The figures in this section update with your selection.</p></div>
+      </section>
+
+      <section class="section coverage-section">
+        <p class="section-number">02 / THE COVERAGE GAP</p>
+        <h2>A recorded benefit is not the same as a <em>paid bill.</em></h2>
+        <p class="section-intro">For many admissions the reimbursement field is blank. Blank is not zero. The figure shown here is restricted to admissions with a recorded amount, so it cannot stand for all patients.</p>
+        <div class="coverage-card" id="coverage-card"></div>
+      </section>
+
+      <section id="states" class="section state-section">
+        <p class="section-number">03 / STATE EXPLORER</p>
+        <h2>One country. Different costs.</h2>
+        <p class="section-intro">Choose states and a measure to compare survey estimates. State samples are modest; differences should not be read as policy effects.</p>
+        <div class="controls"><div><p class="label">COMPARE A MEASURE</p><div class="filter-buttons" id="measure-filter" role="group" aria-label="Measure"></div></div><div><p class="label">SELECT STATES</p><div class="state-picker" id="state-picker" aria-label="Select states"></div></div></div>
+        <div class="chart-header" id="chart-header"></div>
+        <div class="state-chart" id="state-chart" aria-label="State comparison chart"></div>
+        <button class="text-button" id="table-toggle" aria-expanded="false">Show data table</button>
+        <div class="table-wrap" id="data-table" hidden></div>
+        <div class="why-states"><p class="label">WHY THESE STATES?</p><p>The six states shown have at least 100 unweighted admissions in the cancer-related category. Delhi and Jammu &amp; Kashmir have too few observations for a comparison on equal footing.</p></div>
+      </section>
+
+      <section class="section care-section">
+        <p class="section-number">04 / WHERE CARE HAPPENS</p>
+        <h2>The setting of care is part of the <em>story.</em></h2>
+        <p class="section-intro">Hospital type records where treatment took place. It does not tell us whether a household could choose between providers, or why someone sought care there.</p>
+        <div class="institution-grid" id="institution-grid"></div>
+        <p class="small-note">Weighted share of cancer-category admissions · <span id="institution-area">All India</span></p>
+      </section>
+
+      <section id="methods" class="section methods-section">
+        <p class="section-number">05 / METHODS &amp; SOURCES</p>
+        <h2>What the data can and cannot say.</h2>
+        <p class="section-intro">The strength of a public-data project is knowing precisely where its evidence ends.</p>
+        <div class="method-grid">
+          <article><p>01 / SOURCE</p><h3>Hospitalisation survey</h3><p>NSS 75th Round, Social Consumption: Health, 2017–18. Hospitalisation, expenditure and reimbursement files are matched on the sampled household, member and admission identifiers. This site displays grouped results only.</p></article>
+          <article><p>02 / DEFINITION</p><h3>Not a cancer registry</h3><p>Survey ailment code 13 combines known or physician-suspected cancers with growing painless lumps. It does not identify cancer site, stage, diagnosis confirmation, or the full burden of outpatient care.</p></article>
+          <article><p>03 / ESTIMATION</p><h3>Weights and suppression</h3><p>Figures use the survey’s combined multiplier: weighted medians for rupee costs and weighted shares for percentages. Sample counts are unweighted. Groups below 30 observations are suppressed.</p></article>
+          <article><p>04 / MISSINGNESS</p><h3>Blank is not zero</h3><p>Reimbursement is summarised only when an amount was recorded. The resulting estimate is not used as a population-wide net-cost figure. Source-of-finance codes describe the major reported source, not every source a household used.</p></article>
+        </div>
+        <div class="source-links"><div><strong>Read the source documentation</strong><p>National Sample Survey, 75th Round, Schedule 25.0, Social Consumption: Health.</p><a href="https://microdata.gov.in/NADA/index.php/catalog/152" target="_blank" rel="noreferrer">MoSPI survey catalogue ↗</a></div><div><strong>Download the aggregated analysis</strong><p>Only anonymised summary statistics; no individual survey records.</p><a href="public/data/health-summary.json" download>Download JSON ↓</a></div></div>
+      </section>
+    </main>
+    <footer><strong>THE COST OF CARE</strong><span>An independent public-data exploration of financial protection in India.</span><a href="#top">Back to top ↑</a></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
