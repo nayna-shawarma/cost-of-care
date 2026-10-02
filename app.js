@@ -66,7 +66,7 @@ function renderStates() {
 }
 function render() { snapshot(); renderFindings(); renderCoverage(); renderInsurance(); renderPmjay(); renderFilters(); renderStates(); }
 
-fetch("public/data/health-summary.json", { cache: "no-store" })
+fetch("public/data/health-summary.json?v=2025-03-11-insurance-pmjay", { cache: "no-store" })
   .then((response) => response.ok ? response.json() : Promise.reject(new Error("Could not load the data summary.")))
   .then((summary) => { data = summary; render(); })
   .catch((error) => { document.querySelector("main").innerHTML = `<p class="error">${error.message}</p>`; });
