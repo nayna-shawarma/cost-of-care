@@ -168,6 +168,227 @@
       }
     ]
   },
+  "insurance": {
+    "linkedStatusN": 1243,
+    "unlinkedStatusN": 363,
+    "rows": [
+      {
+        "label": "Government-sponsored scheme",
+        "n": 216,
+        "share": 23.2,
+        "medianTotalCost": 7875.0,
+        "borrowing": 10.5,
+        "positiveReimbursementAmongRecorded": 27.1,
+        "reimbursementRecordedN": 106
+      },
+      {
+        "label": "Employment-linked cover",
+        "n": 90,
+        "share": 4.0,
+        "medianTotalCost": 70836.0,
+        "borrowing": 2.4,
+        "positiveReimbursementAmongRecorded": 80.9,
+        "reimbursementRecordedN": 55
+      },
+      {
+        "label": "Private household-arranged insurance",
+        "n": 41,
+        "share": 2.4,
+        "medianTotalCost": 60384.0,
+        "borrowing": 3.0,
+        "positiveReimbursementAmongRecorded": 77.2,
+        "reimbursementRecordedN": 38
+      },
+      {
+        "label": "No recorded cover",
+        "n": 883,
+        "share": 70.1,
+        "medianTotalCost": 27000.0,
+        "borrowing": 14.7,
+        "positiveReimbursementAmongRecorded": 0.0,
+        "reimbursementRecordedN": 375
+      },
+      {
+        "label": "Other scheme",
+        "n": 13,
+        "share": 0.4,
+        "medianTotalCost": 66000.0,
+        "borrowing": 0.0,
+        "positiveReimbursementAmongRecorded": 100.0,
+        "reimbursementRecordedN": 12
+      }
+    ]
+  },
+  "pmjay": {
+    "source": "Ministry of Health and Family Welfare, Rajya Sabha Unstarred Question 1399, Annexure I (answered 11 March 2025)",
+    "sourceUrl": "https://sansad.in/getFile/annex/267/AU1399_IpWgdF.pdf?source=pqars",
+    "asOf": "28 February 2025",
+    "note": "Administrative AB-PMJAY cancer-related hospital admissions and treatment amount. These are not NSS survey estimates and are not comparable as a before-and-after effect.",
+    "totalAdmissions": 6360663,
+    "totalAmountCrore": 14503.89,
+    "states": [
+      {
+        "state": "Andaman and Nicobar Islands",
+        "admissions": 478,
+        "amountCrore": 2.14
+      },
+      {
+        "state": "Andhra Pradesh",
+        "admissions": 919698,
+        "amountCrore": 2082.32
+      },
+      {
+        "state": "Arunachal Pradesh",
+        "admissions": 676,
+        "amountCrore": 1.83
+      },
+      {
+        "state": "Assam",
+        "admissions": 154762,
+        "amountCrore": 401.05
+      },
+      {
+        "state": "Bihar",
+        "admissions": 142621,
+        "amountCrore": 337.89
+      },
+      {
+        "state": "Chandigarh",
+        "admissions": 2014,
+        "amountCrore": 4.84
+      },
+      {
+        "state": "Chhattisgarh",
+        "admissions": 236091,
+        "amountCrore": 580.57
+      },
+      {
+        "state": "DNH & DD",
+        "admissions": 4358,
+        "amountCrore": 11.42
+      },
+      {
+        "state": "Gujarat",
+        "admissions": 874590,
+        "amountCrore": 2091.05
+      },
+      {
+        "state": "Haryana",
+        "admissions": 98055,
+        "amountCrore": 283.6
+      },
+      {
+        "state": "Himachal Pradesh",
+        "admissions": 23813,
+        "amountCrore": 49.96
+      },
+      {
+        "state": "Jammu and Kashmir",
+        "admissions": 150375,
+        "amountCrore": 346.77
+      },
+      {
+        "state": "Jharkhand",
+        "admissions": 98957,
+        "amountCrore": 232.35
+      },
+      {
+        "state": "Karnataka",
+        "admissions": 255150,
+        "amountCrore": 1326.71
+      },
+      {
+        "state": "Kerala",
+        "admissions": 417672,
+        "amountCrore": 906.08
+      },
+      {
+        "state": "Ladakh",
+        "admissions": 986,
+        "amountCrore": 2.33
+      },
+      {
+        "state": "Lakshadweep",
+        "admissions": 127,
+        "amountCrore": 0.42
+      },
+      {
+        "state": "Madhya Pradesh",
+        "admissions": 500117,
+        "amountCrore": 1330.03
+      },
+      {
+        "state": "Maharashtra",
+        "admissions": 27037,
+        "amountCrore": 37.09
+      },
+      {
+        "state": "Manipur",
+        "admissions": 16995,
+        "amountCrore": 38.39
+      },
+      {
+        "state": "Meghalaya",
+        "admissions": 16806,
+        "amountCrore": 41.19
+      },
+      {
+        "state": "Mizoram",
+        "admissions": 14315,
+        "amountCrore": 27.32
+      },
+      {
+        "state": "Nagaland",
+        "admissions": 17256,
+        "amountCrore": 46.04
+      },
+      {
+        "state": "Puducherry",
+        "admissions": 2620,
+        "amountCrore": 8.0
+      },
+      {
+        "state": "Punjab",
+        "admissions": 182049,
+        "amountCrore": 393.88
+      },
+      {
+        "state": "Rajasthan",
+        "admissions": 449320,
+        "amountCrore": 900.96
+      },
+      {
+        "state": "Sikkim",
+        "admissions": 725,
+        "amountCrore": 1.66
+      },
+      {
+        "state": "Tamil Nadu",
+        "admissions": 876420,
+        "amountCrore": 941.76
+      },
+      {
+        "state": "Telangana",
+        "admissions": 397771,
+        "amountCrore": 588.29
+      },
+      {
+        "state": "Tripura",
+        "admissions": 17989,
+        "amountCrore": 39.6
+      },
+      {
+        "state": "Uttar Pradesh",
+        "admissions": 378812,
+        "amountCrore": 1185.1
+      },
+      {
+        "state": "Uttarakhand",
+        "admissions": 82008,
+        "amountCrore": 263.25
+      }
+    ]
+  },
   "states": [
     {
       "n": 205,
