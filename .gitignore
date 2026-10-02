@@ -1,0 +1,9 @@
+# Source microdata are intentionally excluded. They remain in the original upload archive.
+data/raw/
+*.zip
+
+# Local tooling
+node_modules/
+dist/
+.DS_Store
+.env
