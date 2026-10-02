@@ -37,7 +37,39 @@ STATE_NAMES = {
 
 FINANCE = {"1": "Savings & income", "2": "Borrowing", "3": "Asset sales", "4": "Friends & family", "9": "Other sources"}
 INSTITUTION = {"1": "Public", "2": "Charitable / trust", "3": "Private"}
+INSURANCE = {
+    "1": "Government-sponsored scheme",
+    "2": "Government/PSU employer cover",
+    "3": "Other employer-supported cover",
+    "4": "Private household-arranged insurance",
+    "5": "No recorded cover",
+    "9": "Other scheme",
+}
+INSURANCE_GROUPS = {
+    "Government-sponsored scheme": ["1"],
+    "Employment-linked cover": ["2", "3"],
+    "Private household-arranged insurance": ["4"],
+    "No recorded cover": ["5"],
+    "Other scheme": ["9"],
+}
 SELECTED_STATES = ["Uttar Pradesh", "West Bengal", "Kerala", "Maharashtra", "Rajasthan", "Odisha"]
+
+# Official Parliamentary answer, Rajya Sabha Unstarred Question 1399, answered 11 March 2025.
+# Annexure I reports state/UT cancer-related AB-PMJAY hospital admissions and treatment amount,
+# with data as on 28 February 2025. These are administrative counts, not NSS survey estimates.
+PMJAY_CANCER_ROWS = [
+    ("Andaman and Nicobar Islands", 478, 2.14), ("Andhra Pradesh", 919698, 2082.32),
+    ("Arunachal Pradesh", 676, 1.83), ("Assam", 154762, 401.05), ("Bihar", 142621, 337.89),
+    ("Chandigarh", 2014, 4.84), ("Chhattisgarh", 236091, 580.57), ("DNH & DD", 4358, 11.42),
+    ("Gujarat", 874590, 2091.05), ("Haryana", 98055, 283.60), ("Himachal Pradesh", 23813, 49.96),
+    ("Jammu and Kashmir", 150375, 346.77), ("Jharkhand", 98957, 232.35), ("Karnataka", 255150, 1326.71),
+    ("Kerala", 417672, 906.08), ("Ladakh", 986, 2.33), ("Lakshadweep", 127, 0.42),
+    ("Madhya Pradesh", 500117, 1330.03), ("Maharashtra", 27037, 37.09), ("Manipur", 16995, 38.39),
+    ("Meghalaya", 16806, 41.19), ("Mizoram", 14315, 27.32), ("Nagaland", 17256, 46.04),
+    ("Puducherry", 2620, 8.00), ("Punjab", 182049, 393.88), ("Rajasthan", 449320, 900.96),
+    ("Sikkim", 725, 1.66), ("Tamil Nadu", 876420, 941.76), ("Telangana", 397771, 588.29),
+    ("Tripura", 17989, 39.60), ("Uttar Pradesh", 378812, 1185.10), ("Uttarakhand", 82008, 263.25),
+]
 
 
 def read_csv_from_zip(archive: zipfile.ZipFile, member: str) -> pd.DataFrame:
@@ -97,15 +129,55 @@ def distribution(frame: pd.DataFrame, field: str, labels: list[str]) -> list[dic
     return rows
 
 
+def insurance_estimates(frame: pd.DataFrame) -> dict:
+    """Summarise recorded coverage status; blank linkage is kept out of the denominator."""
+    observed = frame.loc[frame["insurance_code"].notna()].copy()
+    observed_weight = observed.loc[observed["weight"].notna() & (observed["weight"] > 0), "weight"].sum()
+    rows = []
+    for label, codes in INSURANCE_GROUPS.items():
+        group = observed.loc[observed["insurance_code"].isin(codes)]
+        reimbursement_observed = group["reimbursement"].notna()
+        rows.append({
+            "label": label,
+            "n": int(len(group)),
+            "share": tidy_number(group.loc[group["weight"].notna() & (group["weight"] > 0), "weight"].sum() / observed_weight * 100),
+            "medianTotalCost": tidy_number(weighted_median(group["total_cost"], group["weight"])),
+            "borrowing": tidy_number(weighted_share(group["finance"].eq("Borrowing"), group["weight"])),
+            "positiveReimbursementAmongRecorded": tidy_number(
+                weighted_share(
+                    group.loc[reimbursement_observed, "reimbursement"] > 0,
+                    group.loc[reimbursement_observed, "weight"],
+                )
+            ) if reimbursement_observed.any() else None,
+            "reimbursementRecordedN": int(reimbursement_observed.sum()),
+        })
+    return {
+        "linkedStatusN": int(len(observed)),
+        "unlinkedStatusN": int(len(frame) - len(observed)),
+        "rows": rows,
+    }
+
+
 def build(raw_zip: Path, output: Path) -> dict:
     with zipfile.ZipFile(raw_zip) as archive:
+        block4 = read_csv_from_zip(archive, "CSV_HSCH_75/Block_4_Level_3_R75250L03.csv")
         block6 = read_csv_from_zip(archive, "CSV_HSCH_75/Block_6_Level_5_R75250L05.csv")
         block7a = read_csv_from_zip(archive, "CSV_HSCH_75/Block_7_Level_6_R75250L06.csv")
         block7b = read_csv_from_zip(archive, "CSV_HSCH_75/Block_7_Level_7_R75250L07.csv")
 
     # Code 13 is the survey's combined known/suspected cancer and growing painless-lump category.
     cases = block6.loc[block6["Nature_of_ailment"].str.strip().eq("13")].copy()
-    merged = cases.merge(block7a[CASE_KEYS + ["Expenditure_Total_items_Rs"]], on=CASE_KEYS, how="left", validate="one_to_one")
+    member_keys = IDENTIFIERS + ["Person_serial_no"]
+    member_coverage = block4[member_keys + ["covered_by_any_scheme_for_health"]].rename(
+        columns={"Person_serial_no": "Srl_no_of_member_hospitalised"}
+    )
+    merged = cases.merge(
+        member_coverage,
+        on=IDENTIFIERS + ["Srl_no_of_member_hospitalised"],
+        how="left",
+        validate="many_to_one",
+    )
+    merged = merged.merge(block7a[CASE_KEYS + ["Expenditure_Total_items_Rs"]], on=CASE_KEYS, how="left", validate="one_to_one")
     merged = merged.merge(
         block7b[CASE_KEYS + ["Total_amount_reimbursed_by_medic", "Major_source_of_finance"]],
         on=CASE_KEYS,
@@ -121,6 +193,7 @@ def build(raw_zip: Path, output: Path) -> dict:
     merged["residence"] = merged["Sector"].str.strip().map({"1": "Rural", "2": "Urban"})
     merged["finance"] = merged["Major_source_of_finance"].str.strip().map(FINANCE)
     merged["institution"] = merged["Type_of_medical_institution"].str.strip().map(INSTITUTION)
+    merged["insurance_code"] = merged["covered_by_any_scheme_for_health"].str.strip()
 
     all_india = group_estimates(merged)
     by_residence = {name: group_estimates(group) for name, group in merged.groupby("residence", dropna=False) if pd.notna(name)}
@@ -135,6 +208,7 @@ def build(raw_zip: Path, output: Path) -> dict:
         name: distribution(group, "institution", list(INSTITUTION.values()))
         for name, group in merged.groupby("residence", dropna=False) if pd.notna(name)
     }
+    insurance = insurance_estimates(merged)
 
     state_rows = []
     for state in SELECTED_STATES:
@@ -157,6 +231,19 @@ def build(raw_zip: Path, output: Path) -> dict:
         "financeByResidence": finance_by_residence,
         "institutions": institutions,
         "institutionsByResidence": institutions_by_residence,
+        "insurance": insurance,
+        "pmjay": {
+            "source": "Ministry of Health and Family Welfare, Rajya Sabha Unstarred Question 1399, Annexure I (answered 11 March 2025)",
+            "sourceUrl": "https://sansad.in/getFile/annex/267/AU1399_IpWgdF.pdf?source=pqars",
+            "asOf": "28 February 2025",
+            "note": "Administrative AB-PMJAY cancer-related hospital admissions and treatment amount. These are not NSS survey estimates and are not comparable as a before-and-after effect.",
+            "totalAdmissions": sum(row[1] for row in PMJAY_CANCER_ROWS),
+            "totalAmountCrore": round(sum(row[2] for row in PMJAY_CANCER_ROWS), 2),
+            "states": [
+                {"state": state, "admissions": admissions, "amountCrore": amount}
+                for state, admissions, amount in PMJAY_CANCER_ROWS
+            ],
+        },
         "states": state_rows,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
