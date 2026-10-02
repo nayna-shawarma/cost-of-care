@@ -1,6 +1,31 @@
 const formatRupees = (value) => new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(value);
 const formatPercent = (value) => `${value.toFixed(1)}%`;
 
+// These grouped policy summaries are also stored in health-summary.json. Keeping a small
+// display fallback here prevents a temporary Pages cache mismatch from blanking the section.
+const policyFallback = {
+  insurance: {
+    linkedStatusN: 1243,
+    rows: [
+      { label: "Government-sponsored scheme", n: 216, share: 23.2, medianTotalCost: 7875, borrowing: 10.5 },
+      { label: "Employment-linked cover", n: 90, share: 4.0, medianTotalCost: 70836, borrowing: 2.4 },
+      { label: "Private household-arranged insurance", n: 41, share: 2.4, medianTotalCost: 60384, borrowing: 3.0 },
+      { label: "No recorded cover", n: 883, share: 70.1, medianTotalCost: 27000, borrowing: 14.7 },
+      { label: "Other scheme", n: 13, share: 0.4, medianTotalCost: 66000, borrowing: 0.0 },
+    ],
+  },
+  pmjay: {
+    asOf: "28 February 2025",
+    totalAdmissions: 6360663,
+    totalAmountCrore: 14503.89,
+    states: [
+      { state: "Andhra Pradesh", admissions: 919698 }, { state: "Tamil Nadu", admissions: 876420 },
+      { state: "Gujarat", admissions: 874590 }, { state: "Madhya Pradesh", admissions: 500117 },
+      { state: "Rajasthan", admissions: 449320 }, { state: "Kerala", admissions: 417672 },
+    ],
+  },
+};
+
 let data;
 let residence = "All India";
 let measure = "medianTotalCost";
@@ -36,13 +61,13 @@ function renderCoverage() {
   document.querySelector("#coverage-card").innerHTML = `<div><p class="label">REIMBURSEMENT RECORDED</p><strong>${stats.reimbursementRecordedN}<small> / ${stats.n}</small></strong><p>Among ${stats.reimbursementRecordedN} admissions with an amount recorded, <b>${formatPercent(stats.positiveReimbursementAmongRecorded)}</b> show a positive reimbursement.</p></div><p class="missing">${blank} admissions have a blank reimbursement amount in this selection.</p>`;
 }
 function renderInsurance() {
-  const insurance = data.insurance;
+  const insurance = data.insurance || policyFallback.insurance;
   const visibleRows = insurance.rows.filter((item) => item.label !== "Other scheme");
   document.querySelector("#insurance-summary").innerHTML = `<div><p class="label">COVERAGE STATUS LINKED</p><strong>${insurance.linkedStatusN.toLocaleString("en-IN")}</strong><p>of ${data.allIndia.n.toLocaleString("en-IN")} cancer-category admissions can be linked to the survey’s health-expenditure-support field.</p></div><div><p class="label">GOVERNMENT-SPONSORED</p><strong>${formatPercent(visibleRows[0].share)}</strong><p>of linked admissions report a government-sponsored scheme. This is the largest named route to formal cover in the survey.</p></div>`;
   document.querySelector("#insurance-grid").innerHTML = visibleRows.map((item) => `<article><p class="label">${item.label.toUpperCase()}</p><strong>${formatPercent(item.share)}</strong><p>${item.n.toLocaleString("en-IN")} unweighted admissions</p><small>MEDIAN COST ₹${formatRupees(item.medianTotalCost)}<br />BORROWING ${formatPercent(item.borrowing)}</small></article>`).join("");
 }
 function renderPmjay() {
-  const pmjay = data.pmjay;
+  const pmjay = data.pmjay || policyFallback.pmjay;
   document.querySelector("#pmjay-summary").innerHTML = `<div><p class="label">CANCER-RELATED ADMISSIONS</p><strong>${pmjay.totalAdmissions.toLocaleString("en-IN")}</strong><p>Sum of the State/UT rows listed in the Parliamentary annexure.</p></div><div><p class="label">TREATMENT AMOUNT REPORTED</p><strong>₹${formatRupees(pmjay.totalAmountCrore)} cr</strong><p>AB-PMJAY administrative data, as of ${pmjay.asOf}.</p></div>`;
   const rows = [...pmjay.states].sort((a, b) => b.admissions - a.admissions).slice(0, 6);
   const high = rows[0].admissions;
